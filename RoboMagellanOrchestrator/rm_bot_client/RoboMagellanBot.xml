@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<robot name="physics">
+
+  <!--Despite the name, this is actually gray plastic.-->
+  <material name="grey_plastic">
+    <unreal_material path="Material'/Game/AutomotiveMaterials/Materials/Plastic/M_Plastic_Coated_Black.M_Plastic_Coated_Black'"/>
+  </material>
+  
+  <material name="black_plastic">
+    <unreal_material path="Material'/Game/AutomotiveMaterials/Materials/Plastic/M_Plastic_Matte.M_Plastic_Matte'"/>
+  </material>
+
+  <material name="tire_rubber">
+    <unreal_material path="Material'/Game/AutomotiveMaterials/Materials/Rubber/M_TireRubber.M_TireRubber'"/>
+  </material>
+  
+  <link name="main_box">
+    <visual>
+      <geometry>
+        <box size="0.5461 0.3175 0.127"/>
+      </geometry>
+      <material name="grey_plastic"/>
+    </visual>
+    <collision>
+        <geometry>
+            <box size="0.5461 0.3175 0.127"/>
+        </geometry>
+    </collision>
+    <inertial>
+      <mass value="6"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+   <link name="wheel_bl">
+    <visual>
+      <geometry>
+        <mesh type="unreal_mesh" location="StaticMesh'/Game/wheel.wheel'" reverse_normals="true" scale_factor="10"/>
+      </geometry>
+      <material name="tire_rubber"/>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <link name="wheel_br">
+    <visual>
+      <geometry>
+        <mesh type="unreal_mesh" location="StaticMesh'/Game/wheel.wheel'" reverse_normals="true" scale_factor="10"/>
+      </geometry>
+      <material name="tire_rubber"/>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <link name="wheel_fl">
+    <visual>
+      <geometry>
+        <mesh type="unreal_mesh" location="StaticMesh'/Game/wheel.wheel'" reverse_normals="true" scale_factor="10"/>
+      </geometry>
+      <material name="tire_rubber"/>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <link name="wheel_fr">
+    <visual>
+      <geometry>
+        <mesh type="unreal_mesh" location="StaticMesh'/Game/wheel.wheel'" reverse_normals="true" scale_factor="10"/>
+      </geometry>
+      <material name="tire_rubber"/>
+    </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <link name="lidar">
+    <visual>
+      <geometry>
+        <cylinder length="0.0254" radius="0.0762"/>
+      </geometry>
+      <material name="black_plastic"/>
+    </visual>
+    <collision>
+        <geometry>
+            <cylinder length="0.0254" radius="0.0762"/>
+        </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <joint name="main_box_to_wheel_bl" type="continuous">
+    <parent link="main_box"/>
+    <child link="wheel_bl"/>
+    <origin rpy="0 0 1.5707" xyz="-.2222 -.18415 -.06"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="20" velocity="2.5"/>
+  </joint>
+  
+  <joint name="main_box_to_wheel_br" type="continuous">
+    <parent link="main_box"/>
+    <child link="wheel_br"/>
+    <origin rpy="0 0 1.5707" xyz="-.2222 .18415 -.06"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="6" velocity="2.5"/>
+  </joint>
+  
+  <joint name="main_box_to_wheel_fl" type="continuous">
+    <parent link="main_box"/>
+    <child link="wheel_fl"/>
+    <origin rpy="0 0 1.5707" xyz=".2222 -.18415 -.06"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="6" velocity="2.5"/>
+  </joint>
+  
+  <joint name="main_box_to_wheel_fr" type="continuous">
+    <parent link="main_box"/>
+    <child link="wheel_fr"/>
+    <origin rpy="0 0 1.5707" xyz=".2222 .18415 -.06"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit lower="0" upper="0" effort="6" velocity="2.5"/>
+  </joint>
+  
+  <joint name="main_box_to_lidar" type="fixed">
+    <parent link="main_box"/>
+    <child link="lidar"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0762"/>
+    <axis rpy="0 0 0" xyz="0 0 1"/>
+    <limit lower="0" upper="0" effort="6" velocity="18"/>
+  </joint>
+  
+</robot>
