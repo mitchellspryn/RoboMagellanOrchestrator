@@ -120,7 +120,8 @@ class RoboMagellanCompetitionOrchestrator(object):
             
             for cone in self.cones:
                 if cone.random_name == object_name:
-                    cone.set_visited(self.elapsed_seconds)
+                    if not(cone.visited):
+                        cone.set_visited(self.elapsed_seconds)
                     collided_with_cone = True
 
             if not collided_with_cone and self.end_run_on_collision:
@@ -130,10 +131,11 @@ class RoboMagellanCompetitionOrchestrator(object):
                 return
 
         if (self.goal_point.is_bot_at_goal(client)):
-            self.goal_point.set_visited(self.elapsed_seconds)
-            self.end_time = now
-            self.run_complete = True
-            self.run_end_reason = 'goal reached.'
+            if not (self.goal_point.visited):
+                self.goal_point.set_visited(self.elapsed_seconds)
+                self.end_time = now
+                self.run_complete = True
+                self.run_end_reason = 'goal reached.'
 
     def get_run_score(self, client):
         if (not self.run_complete 
