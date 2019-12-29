@@ -15,7 +15,7 @@ The orchestrator generally follows the following logic:
 The orchestrator code runs synchronously with the control code, so the function run_tick() must be called periodically.
 
 ## Orchestrator configuration
-The configuration file is a JSON file that specifies the parameters of the competition run. A sample configuration can be found in [RoboMagellanOrchestraotr/TestOrchestratorConfiguration.json](https://github.com/mitchellspryn/RoboMagellanOrchestrator/blob/master/RoboMagellanOrchestrator/TestOrchestrationConfiguration.json). It is intended to be used with the [Three Bridges Map](https://github.com/mitchellspryn/AnnotatedUnrealMaps/blob/master/Docs/Maps.md) from the annotated unreal engines. This map can be downloaded from the [Annotated Unreal Maps' release page](https://github.com/mitchellspryn/AnnotatedUnrealMaps/releases/tag/v1.0). The configuration file has the following schema:
+The configuration file is a JSON file that specifies the parameters of the competition run. A sample configuration can be found in [RoboMagellanOrchestrator/TestOrchestratorConfiguration.json](https://github.com/mitchellspryn/RoboMagellanOrchestrator/blob/master/RoboMagellanOrchestrator/TestOrchestrationConfiguration.json). It is intended to be used with the [Three Bridges Map](https://github.com/mitchellspryn/AnnotatedUnrealMaps/blob/master/Docs/Maps.md) from the annotated unreal engines. This map can be downloaded from the [Annotated Unreal Maps' release page](https://github.com/mitchellspryn/AnnotatedUnrealMaps/releases/tag/v1.0). The configuration file has the following schema:
 
 * **timeLimit**: The maximum runtime of the simulation, in seconds.
 * **endRunOnCollision**: If true, colliding with another object that is not a cone will end the run.
@@ -30,17 +30,17 @@ The configuration file is a JSON file that specifies the parameters of the compe
     * **bonusMultiplier**: The value with which to multiply the final score if the cone is reached. Generally, this value is on the range [0, 1]. For example, when specifying a bonusMultiplier of "0.25", then the final scoure will be multiplied by 0.25 if the cone is reached.
 
 For objects marked **spawnable**, there are two mechanisms that can be used to spawn them. These spawn methods are mutually exclusive, and one must be specified for each spawnable object. The first is by specifying a **poseList** member, which is a list of static points which are selected at random. Each element in the poseList field has the following parameters:
-    * **x**: The x coordinate of the spawn point.
-    * **y**: The y coordinate of the spawn point.
-    * **roll**: The roll of the spawn point.
-    * **pitch**: The pitch of the spawn point.
-    * **yaw**: The yaw of the spawn point.
+* **x**: The x coordinate of the spawn point.
+* **y**: The y coordinate of the spawn point.
+* **roll**: The roll of the spawn point.
+* **pitch**: The pitch of the spawn point.
+* **yaw**: The yaw of the spawn point.
 
 Note that roll, pitch, and yaw will only have effect for the "startPose" member. 
 The other option is specifying a **spawnRegion** member. When specifying a spawn region, a list of x,y coordinates must be provided. A region within this polygon will be selected at random at the start of the run. The z coordinate will be computed so that the object spawns on the ground. If the object would spawn underwater, a new spawn point is chosen. 
 
 ## Orchestrator API
-Once the orchestrator configuration file has been authored, it can be used with the provided code to run a simulated competition run. A simple example of the simulation can be found at  [RoboMagellanOrchestraotr/TestOrchestratorRun.py](https://github.com/mitchellspryn/RoboMagellanOrchestrator/blob/master/RoboMagellanOrchestrator/TestOrchestratorRun.py). It is intended to be used with the [Three Bridges Map](https://github.com/mitchellspryn/AnnotatedUnrealMaps/blob/master/Docs/Maps.md) from the annotated unreal engines. This map can be downloaded from the [Annotated Unreal Maps' release page](https://github.com/mitchellspryn/AnnotatedUnrealMaps/releases/tag/v1.0). Note that the simulation should already be running in a separate process before invoking the orchestrator.
+Once the orchestrator configuration file has been authored, it can be used with the provided code to run a simulated competition run. A simple example of the simulation can be found at  [RoboMagellanOrchestrator/TestOrchestratorRun.py](https://github.com/mitchellspryn/RoboMagellanOrchestrator/blob/master/RoboMagellanOrchestrator/TestOrchestratorRun.py). It is intended to be used with the [Three Bridges Map](https://github.com/mitchellspryn/AnnotatedUnrealMaps/blob/master/Docs/Maps.md) from the annotated unreal engines. This map can be downloaded from the [Annotated Unreal Maps' release page](https://github.com/mitchellspryn/AnnotatedUnrealMaps/releases/tag/v1.0). Note that the simulation should already be running in a separate process before invoking the orchestrator.
 
 The orchestrator exposes the following APIs:
 * **Constructor**: Accepts the file path to the configuration json.
