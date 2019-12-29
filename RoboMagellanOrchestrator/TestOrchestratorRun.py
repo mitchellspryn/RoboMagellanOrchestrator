@@ -57,8 +57,6 @@ def main():
 
     status = orchestrator.get_run_summary(client)
     while (not status['runComplete']):
-        pose = client.simGetVehiclePose()
-        kinematics = client.simGetGroundTruthKinematics()
         left_throttle, right_throttle = get_control_signals()
         client.drive(left_throttle, right_throttle)
 

@@ -1,0 +1,7 @@
+# Robo Magellan Orchestrator
+
+This project uses the python API exposed via [UrdfSim](https://github.com/mitchellspryn/UrdfSim) to simulate a competition run of the Seattle Robotics Society (SRS) [RoboMagellan Challenge](http://robogames.net/rules/magellan.php). This challenge consists of autonomous navigation to a set of GPS waypoints denoted by a set of orange traffic cones. Robots are scored based on the time it takes to reach the goal waypoint, with smaller times yielding lower scores. In addition, there are "bonus cones" which, if reached, will decrease the final score by a constant multiplier. [Here is an example run from the 2008 RoboGames](https://www.youtube.com/watch?v=bk0Jl1eW57w&feature=emb_logo)!
+
+After builing the primitives of simulation (e.g. URDF file, settings.json) for simulating the target robot in URDFSim, this program will handle the spawning of cones, and records the progress of the simulated robot during the run. It will also calculate the final score achieved during the run. This can be used for either algorithm training or algorithm validaiton during the robot development cycle. For more information on how to set up a run, visit the [docs page]()! Here is a video of a sample run in action:
+
+![sample_run]()
