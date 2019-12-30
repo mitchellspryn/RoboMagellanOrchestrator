@@ -124,6 +124,14 @@ class RoboMagellanCompetitionOrchestrator(object):
                         cone.set_visited(self.elapsed_seconds)
                     collided_with_cone = True
 
+            if (self.goal_point.cone_type != None):
+                if self.goal_point.random_name == object_name:
+                    if not (self.goal_point.visited):
+                        self.goal_point.set_visited(self.elapsed_seconds)
+                        self.end_time = now
+                        self.run_complete = True
+                        self.run_end_reason = 'goal reached.'
+
             if not collided_with_cone and self.end_run_on_collision:
                 self.end_time = now
                 self.run_complete = True
@@ -290,6 +298,22 @@ class RoboMagellanCompetitionOrchestrator(object):
                                                0,
                                                0,
                                                debug_alpha)
+
+        if (self.goal_point.cone_type is not None):
+            shapes = client.addDrawableShapeLine(shapes, 
+                                                 str(uuid.uuid4()),
+                                                 '',
+                                                 self.goal_point.spawn_pose.position.x_val,
+                                                 self.goal_point.spawn_pose.position.y_val,
+                                                 goal_pose_z + 0.4,
+                                                 self.goal_point.spawn_pose.position.x_val,
+                                                 self.goal_point.spawn_pose.position.y_val,
+                                                 10,
+                                                 debug_thickness,
+                                                 255, 
+                                                 0,
+                                                 0,
+                                                 debug_alpha)
 
         if (self.goal_point.spawn_region is not None):
             shapes = self.__build_debug_polygon(self.goal_point.spawn_region, (255, 0, 255, debug_alpha), shapes, client, thickness=debug_thickness)

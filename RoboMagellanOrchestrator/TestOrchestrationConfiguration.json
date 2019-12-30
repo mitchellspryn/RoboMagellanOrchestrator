@@ -38,8 +38,9 @@
                 "y": -174.03326172
             }
         ],
-        "positionTolerance": 2,
-        "velocityTolerance": 0.1
+        "positionTolerance": 0.5,
+        "velocityTolerance": 0.1,
+        "coneType":  "bright"
     },
     "cones": [
         {

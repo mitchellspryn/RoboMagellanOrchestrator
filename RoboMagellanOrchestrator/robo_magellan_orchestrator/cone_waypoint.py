@@ -27,6 +27,7 @@ class ConeWaypoint(spawnable_object.SpawnableObject):
     def spawn(self, client):
         self.spawn_pose = self.get_valid_spawn_coordinates(client, True)
         client.simSpawnStaticMeshObject(self.mesh_name, self.random_name, self.spawn_pose)
+        client.simSetSegmentationObjectID(self.random_name, 235)
 
     def delete(self, client):
         client.simDeleteObject(self.random_name)

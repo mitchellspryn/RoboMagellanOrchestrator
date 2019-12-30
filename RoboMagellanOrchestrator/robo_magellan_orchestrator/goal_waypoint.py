@@ -1,3 +1,5 @@
+import uuid
+
 import airsim
 import robo_magellan_orchestrator.spawnable_object as spawnable_object
 
@@ -7,6 +9,18 @@ class GoalWaypoint(spawnable_object.SpawnableObject):
         
         self.position_tolerance = float(init_parameters['positionTolerance'])
         self.velocity_tolerance = float(init_parameters['velocityTolerance'])
+        self.cone_type = init_parameters['coneType'].lower().strip()
+
+        if (self.cone_type == 'none'):
+            self.cone_type = None
+        else:
+            self.random_name = str(uuid.uuid4())
+            if (self.cone_type == 'normal'):
+                self.mesh_name = "StaticMesh'/Game/DT_Spring_Landscape/Meshes/SM_traffic_cone.SM_traffic_cone'"
+            elif (self.cone_type == 'bright'):
+                self.mesh_name =  "StaticMesh'/Game/DT_Spring_Landscape/Meshes/SM_traffic_cone_bright.SM_traffic_cone_bright'"
+            else:
+                raise ValueError('Unrecognized cone_type: {0}. Valid options are "normal" and "bright".'.format(self.cone_type)) 
 
         # Record position / velocity as squared values to avoid square roots
         self.position_tolerance = self.position_tolerance ** 2
@@ -26,6 +40,10 @@ class GoalWaypoint(spawnable_object.SpawnableObject):
         self.spawn_pose = self.get_valid_spawn_coordinates(client, False)
         self.goal_center = self.spawn_pose.position
 
+        if (self.cone_type != None):
+            client.simSpawnStaticMeshObject(self.mesh_name, self.random_name, self.spawn_pose)
+            client.simSetSegmentationObjectID(self.random_name, 235)
+
     def is_bot_at_goal(self, client):
         if (self.goal_center == None):
             return False
@@ -43,6 +61,11 @@ class GoalWaypoint(spawnable_object.SpawnableObject):
     def set_visited(self, time_stamp):
         self.visited = True
         self.visited_time_stamp = time_stamp
+
+    def delete(self, client):
+        if (self.cone_type != None):
+            client.simDeleteObject(self.random_name)
+            self.reset()
 
     def __l2_sq(self, a, b):
         return ((a.x_val-b.x_val)*(a.x_val-b.x_val)) + ((a.y_val-b.y_val)*(a.y_val-b.y_val)) + ((a.z_val-b.z_val)*(a.z_val-b.z_val))
