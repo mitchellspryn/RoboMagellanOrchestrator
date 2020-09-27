@@ -4,4 +4,4 @@ This project uses the python API exposed via [UrdfSim](https://github.com/mitche
 
 After builing the primitives of simulation (e.g. URDF file, settings.json) for simulating the target robot in URDFSim, this program will handle the spawning of cones, and records the progress of the simulated robot during the run. It will also calculate the final score achieved during the run. This can be used for either algorithm training or algorithm validaiton during the robot development cycle. For more information on how to set up a run, visit the [docs page](https://github.com/mitchellspryn/RoboMagellanOrchestrator/blob/master/Docs/UsingTheOrchestrator.md)! Here is a video of a sample run in action:
 
-![sample_run]()
+[![sample_run](https://img.youtube.com/vi/2ljQKEdIm1M/0.jpg)](https://www.youtube.com/watch?v=2ljQKEdIm1M)
